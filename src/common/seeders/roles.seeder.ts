@@ -11,7 +11,7 @@ export class RoleSeeder {
 
   async insert(): Promise<void> {
     const existingRoles = await this.entityManager.query(`
-      SELECT name FROM roles WHERE name IN ('ADMIN', 'USER')
+      SELECT name FROM roles WHERE name IN ('ADMIN', 'PLAYER')
       `);
 
     if (existingRoles.length > 0) {
@@ -22,7 +22,7 @@ export class RoleSeeder {
     await this.entityManager.query(`
       INSERT INTO roles (id, name) VALUES
       (1, 'ADMIN'),
-      (2, 'USER')
+      (2, 'PLAYER')
     `);
   }
 }

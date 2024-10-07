@@ -1,8 +1,8 @@
 {
-  "name": "ecommerce",
+  "name": "tournaments",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "Erick Giraldo",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
