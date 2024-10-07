@@ -3,12 +3,14 @@ import { AppModule } from './app.module';
 import { DataSource } from 'typeorm';
 import { GlobalValidationPipe } from './common/pipes/validation.pipe';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const datasource = app.get(DataSource);
   app.setGlobalPrefix('api');
   app.useGlobalPipes(new GlobalValidationPipe());
+  app.useGlobalFilters(new HttpExceptionFilter());
   if (datasource.isInitialized) {
     console.log('\n\nConnection with the database established\n\n');
   } else {
