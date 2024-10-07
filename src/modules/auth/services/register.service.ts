@@ -1,8 +1,9 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/modules/users/entities/user.entity';
-import { RegisterUserDto } from '../dto/register-user.dto';
+import { RegisterUserDto } from '../dto/register-user-input.dto';
 import { Repository } from 'typeorm';
+import { RegisterResponseDto } from '../dto/register-user-output.dto';
 
 @Injectable()
 export class RegisterService {
@@ -10,7 +11,9 @@ export class RegisterService {
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
 
-  async register(registerUserDto: RegisterUserDto): Promise<User> {
+  async register(
+    registerUserDto: RegisterUserDto,
+  ): Promise<RegisterResponseDto> {
     const usersbyEmail = await this.userRepository.find({
       where: { email: registerUserDto.email },
       relations: ['role'],
@@ -26,6 +29,11 @@ export class RegisterService {
       ...registerUserDto,
       role: { id: 2 },
     });
-    return await this.userRepository.save(userData);
+
+    await this.userRepository.save(userData);
+
+    return {
+      message: 'Registration successful',
+    };
   }
 }

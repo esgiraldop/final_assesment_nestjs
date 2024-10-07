@@ -2,8 +2,12 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/modules/users/entities/user.entity';
 import { Repository } from 'typeorm';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { LoginUserDto } from '../dto/login-user.dto';
+import {
+  ConflictException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { LoginUserDto } from '../dto/login-user-input.dto';
 
 @Injectable()
 export class LoginService {
@@ -17,6 +21,11 @@ export class LoginService {
       where: { email: loginUserDto.email },
       relations: ['role'],
     });
+
+    if (!userData) {
+      throw new ConflictException('The user does not exist');
+    }
+
     if (loginUserDto.password !== userData.password) {
       throw new UnauthorizedException('Invalid password');
     }
@@ -24,12 +33,12 @@ export class LoginService {
     return userData;
   }
 
-  async generateToken(userId: number, userRoleId: number) {
-    const payload = { userId, userRoleId };
+  async generateToken(userId: number, roleId: number) {
+    const payload = { userId, roleId };
     const access_token = await this.jwtService.signAsync(payload);
     return {
-      message: 'This is your token',
-      access_token: access_token,
+      message: 'Login successfull. This is your token',
+      token: access_token,
     };
   }
 }
