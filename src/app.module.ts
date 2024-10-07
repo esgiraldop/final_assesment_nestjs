@@ -9,6 +9,9 @@ import { RoleSeeder } from './common/seeders/roles.seeder';
 import { JwtStrategy } from './modules/auth/strategies/jwt.strategy';
 import { UsersModule } from './modules/users/users.module';
 import { RolesModule } from './modules/roles/roles.module';
+import { MatchesModule } from './modules/matches/matches.module';
+import { TournamentsModule } from './modules/tournaments/tournaments.module';
+import { ScoreTableModule } from './modules/score-table/score-table.module';
 
 @Module({
   imports: [
@@ -21,6 +24,9 @@ import { RolesModule } from './modules/roles/roles.module';
     AuthModule,
     UsersModule,
     RolesModule,
+    MatchesModule,
+    TournamentsModule,
+    ScoreTableModule,
   ],
   controllers: [],
   providers: [AppSeeder, RoleSeeder, JwtStrategy],
