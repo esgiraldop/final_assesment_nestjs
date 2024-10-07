@@ -1,9 +1,9 @@
-import { RegisterUserDto } from './dto/register-user.dto';
+import { RegisterUserDto } from './dto/register-user-input.dto';
 import { LoginService } from './services/login.service';
-import { loginResponse } from './interfaces/login-response.interface';
 import { RegisterService } from './services/register.service';
 import { Injectable } from '@nestjs/common';
-import { LoginUserDto } from './dto/login-user.dto';
+import { LoginUserDto } from './dto/login-user-input.dto';
+import { LoginResponseDto } from './dto/login-user-output.dto';
 
 @Injectable()
 export class AuthService {
@@ -16,7 +16,7 @@ export class AuthService {
     return await this.registerService.register(registerUserDto);
   }
 
-  async loginUser(loginUserDto: LoginUserDto): Promise<loginResponse> {
+  async loginUser(loginUserDto: LoginUserDto): Promise<LoginResponseDto> {
     const userData = await this.loginService.checkPassword(loginUserDto);
 
     return await this.loginService.generateToken(userData.id, userData.role.id);

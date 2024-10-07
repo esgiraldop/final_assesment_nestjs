@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/modules/users/entities/user.entity';
 import { Repository } from 'typeorm';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { LoginUserDto } from '../dto/login-user.dto';
+import { LoginUserDto } from '../dto/login-user-input.dto';
 
 @Injectable()
 export class LoginService {
@@ -28,8 +28,8 @@ export class LoginService {
     const payload = { userId, userRoleId };
     const access_token = await this.jwtService.signAsync(payload);
     return {
-      message: 'This is your token',
-      access_token: access_token,
+      message: 'Login successfull. This is your token',
+      token: access_token,
     };
   }
 }
