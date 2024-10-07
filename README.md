@@ -32,7 +32,7 @@ $ yarn run test:cov
 
 # ERD diagram
 
-![alt text](image-1.png)
+![alt text](image.png)
 
 # Production dependencies
 
