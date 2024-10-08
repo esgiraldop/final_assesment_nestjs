@@ -1,11 +1,9 @@
 import { Match } from 'src/modules/matches/entities/match.entity';
 import { Role } from 'src/modules/roles/roles.entity';
-import { Tournament } from 'src/modules/tournaments/entities/tournament.entity';
+import { TournamentPlayers } from 'src/modules/tournament-players/entities/tournament-players.entity';
 import {
   Column,
   Entity,
-  JoinTable,
-  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -31,11 +29,11 @@ export class User {
   @ManyToOne(() => Role, (role) => role.users)
   role: Role;
 
-  @ManyToMany(() => Tournament, (tournament) => tournament.users, {
-    nullable: true,
-  })
-  @JoinTable()
-  tournaments?: Tournament[]; // To be able to create users without the need of providing this
+  @OneToMany(
+    () => TournamentPlayers,
+    (tournamentPlayers) => tournamentPlayers.user,
+  )
+  tournamentPlayer?: TournamentPlayers[];
 
   @OneToMany(() => Match, (match) => match.winner, { nullable: true })
   wonMatches?: Match[];

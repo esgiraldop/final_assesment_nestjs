@@ -5,7 +5,6 @@ import { Tournament } from './entities/tournament.entity';
 import { CreateTournamentInputDto } from './dto/create-tournament-input.dto';
 import { UpdateTournamentInputDto } from './dto/update-tournament-input.dto';
 import { CreateTournamentOutputDto } from './dto/create-tournament-output.dto';
-import { ScoreTable } from '../score-table/entities/score-table.entity';
 
 @UseGuards()
 @Injectable()
@@ -13,8 +12,6 @@ export class TournamentsService {
   constructor(
     @InjectRepository(Tournament)
     private tournamentRepository: Repository<Tournament>,
-    @InjectRepository(ScoreTable)
-    private scoreTableRepository: Repository<ScoreTable>,
   ) {}
 
   async create(
