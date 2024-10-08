@@ -32,6 +32,8 @@ $ yarn run test:cov
 
 # ERD diagram
 
+![alt text](image.png)
+
 # Production dependencies
 
 ```bash

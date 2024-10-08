@@ -9,6 +9,10 @@ import { RoleSeeder } from './common/seeders/roles.seeder';
 import { JwtStrategy } from './modules/auth/strategies/jwt.strategy';
 import { UsersModule } from './modules/users/users.module';
 import { RolesModule } from './modules/roles/roles.module';
+import { MatchesModule } from './modules/matches/matches.module';
+import { TournamentsModule } from './modules/tournaments/tournaments.module';
+import { TournamentPlayersModule } from './modules/tournament-players/tournament-players.module';
+import { UserSeeder } from './common/seeders/users.seeder';
 
 @Module({
   imports: [
@@ -21,8 +25,11 @@ import { RolesModule } from './modules/roles/roles.module';
     AuthModule,
     UsersModule,
     RolesModule,
+    MatchesModule,
+    TournamentsModule,
+    TournamentPlayersModule,
   ],
   controllers: [],
-  providers: [AppSeeder, RoleSeeder, JwtStrategy],
+  providers: [AppSeeder, RoleSeeder, JwtStrategy, UserSeeder],
 })
 export class AppModule {}
