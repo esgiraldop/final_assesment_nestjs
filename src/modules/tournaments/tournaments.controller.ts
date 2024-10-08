@@ -23,7 +23,7 @@ import { CreateTournamentOutputDto } from './dto/create-tournament-output.dto';
 export class TournamentsController {
   constructor(private readonly tournamentsService: TournamentsService) {}
 
-  // @Roles(1)
+  @Roles(1)
   @Post()
   async create(
     @Body() createTournamentDto: CreateTournamentInputDto,
