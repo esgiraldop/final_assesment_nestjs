@@ -28,12 +28,22 @@ export class TournamentsService {
     };
   }
 
-  findAll() {
-    return `This action returns all tournaments`;
+  async findAll() {
+    const tournaments = await this.tournamentRepository.find();
+
+    return tournaments;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} tournament`;
+  async findOne(id: number) {
+    const tournament = await this.tournamentRepository.findOne({
+      where: { id },
+    });
+
+    if (!tournament) {
+      throw new NotFoundException(`Tournament with id ${id} not found`);
+    }
+
+    return tournament;
   }
 
   async update(id: number, updateTournamentDto: UpdateTournamentInputDto) {
