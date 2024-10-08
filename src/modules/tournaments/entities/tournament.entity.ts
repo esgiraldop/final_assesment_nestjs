@@ -27,12 +27,15 @@ export class Tournament {
   @Column()
   location: string;
 
-  @ManyToMany(() => User, (user) => user.tournaments)
-  users: User[];
+  // All the properties down below are optional because do not need to be assigned when creating a tournament
+  @ManyToMany(() => User, (user) => user.tournaments, { nullable: true })
+  users?: User[];
 
-  @OneToMany(() => Match, (match) => match.tournament)
-  matches: Match[];
+  @OneToMany(() => Match, (match) => match.tournament, { nullable: true })
+  matches?: Match[];
 
-  @OneToOne(() => ScoreTable, (scoreTable) => scoreTable.tournament)
-  scoreTable: ScoreTable;
+  @OneToOne(() => ScoreTable, (scoreTable) => scoreTable.tournament, {
+    nullable: true,
+  })
+  scoreTable?: ScoreTable;
 }
