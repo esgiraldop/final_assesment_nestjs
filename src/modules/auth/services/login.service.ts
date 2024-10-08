@@ -8,6 +8,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { LoginUserDto } from '../dto/login-user-input.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class LoginService {
@@ -26,7 +27,12 @@ export class LoginService {
       throw new ConflictException('The user does not exist');
     }
 
-    if (loginUserDto.password !== userData.password) {
+    const isCorrectPassword = await bcrypt.compare(
+      loginUserDto.password,
+      userData.password,
+    );
+
+    if (!isCorrectPassword) {
       throw new UnauthorizedException('Invalid password');
     }
 

@@ -1,11 +1,9 @@
 import { Match } from 'src/modules/matches/entities/match.entity';
 import { Role } from 'src/modules/roles/roles.entity';
-import { Tournament } from 'src/modules/tournaments/entities/tournament.entity';
+import { TournamentPlayers } from 'src/modules/tournament-players/entities/tournament-players.entity';
 import {
   Column,
   Entity,
-  JoinTable,
-  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -22,7 +20,7 @@ export class User {
   @Column({ type: 'varchar', nullable: false, length: 255 })
   email: string;
 
-  @Column({ type: 'varchar', nullable: false, length: 30 })
+  @Column({ type: 'varchar', nullable: false, length: 100 })
   password: string;
 
   @Column()
@@ -31,13 +29,15 @@ export class User {
   @ManyToOne(() => Role, (role) => role.users)
   role: Role;
 
-  @ManyToMany(() => Tournament, (tournament) => tournament.users)
-  @JoinTable()
-  tournaments: Tournament[];
+  @OneToMany(
+    () => TournamentPlayers,
+    (tournamentPlayers) => tournamentPlayers.user,
+  )
+  tournamentPlayer?: TournamentPlayers[];
 
-  @OneToMany(() => Match, (match) => match.winner)
-  wonMatches: Match[];
+  @OneToMany(() => Match, (match) => match.winner, { nullable: true })
+  wonMatches?: Match[];
 
-  @OneToMany(() => Match, (match) => match.loser)
-  lostMatches: Match[];
+  @OneToMany(() => Match, (match) => match.loser, { nullable: true })
+  lostMatches?: Match[];
 }

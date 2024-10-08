@@ -4,6 +4,7 @@ import { User } from 'src/modules/users/entities/user.entity';
 import { RegisterUserDto } from '../dto/register-user-input.dto';
 import { Repository } from 'typeorm';
 import { RegisterResponseDto } from '../dto/register-user-output.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class RegisterService {
@@ -25,9 +26,16 @@ export class RegisterService {
       );
     }
 
+    const password = registerUserDto.password;
+    registerUserDto.password = await await bcrypt.hash(password, 10);
+
     const userData = this.userRepository.create({
       ...registerUserDto,
       role: { id: 2 },
+      rank: 0,
+      // tournaments: [{ id: 0 }], // Each tournament should be an object with an id
+      // wonMatches: [{ id: 0 }], // Same for wonMatches and lostMatches
+      // lostMatches: [{ id: 0 }],
     });
 
     await this.userRepository.save(userData);

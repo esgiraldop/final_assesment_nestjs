@@ -11,7 +11,8 @@ import { UsersModule } from './modules/users/users.module';
 import { RolesModule } from './modules/roles/roles.module';
 import { MatchesModule } from './modules/matches/matches.module';
 import { TournamentsModule } from './modules/tournaments/tournaments.module';
-import { ScoreTableModule } from './modules/score-table/score-table.module';
+import { TournamentPlayersModule } from './modules/tournament-players/tournament-players.module';
+import { UserSeeder } from './common/seeders/users.seeder';
 
 @Module({
   imports: [
@@ -26,9 +27,9 @@ import { ScoreTableModule } from './modules/score-table/score-table.module';
     RolesModule,
     MatchesModule,
     TournamentsModule,
-    ScoreTableModule,
+    TournamentPlayersModule,
   ],
   controllers: [],
-  providers: [AppSeeder, RoleSeeder, JwtStrategy],
+  providers: [AppSeeder, RoleSeeder, JwtStrategy, UserSeeder],
 })
 export class AppModule {}
