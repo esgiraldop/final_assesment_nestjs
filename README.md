@@ -37,7 +37,7 @@ $ yarn run test:cov
 # Production dependencies
 
 ```bash
-yarn add pg @nestjs/swagger @nestjs/typeorm @nestjs/common class-transformer class-validator typeorm @nestjs/config @nestjs/passport passport passport-local passport-jwt @nestjs/jwt
+yarn add pg @nestjs/swagger @nestjs/typeorm @nestjs/common class-transformer class-validator typeorm @nestjs/config @nestjs/passport passport passport-local passport-jwt @nestjs/jwt bcrypt
 ```
 
 # Development dependencies
