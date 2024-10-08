@@ -16,11 +16,14 @@ export class Match {
   @Column({ type: 'date' })
   endDate: Date;
 
-  @ManyToOne(() => User, (user) => user.wonMatches)
-  winner: User;
+  @Column({ nullable: true })
+  deletedAt: Date;
 
-  @ManyToOne(() => User, (user) => user.lostMatches)
-  loser: User;
+  @ManyToOne(() => User, (user) => user.wonMatches, { nullable: true })
+  winner?: User;
+
+  @ManyToOne(() => User, (user) => user.lostMatches, { nullable: true })
+  loser?: User;
 
   @Column()
   winnerScore: number;
