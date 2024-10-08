@@ -15,6 +15,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/common/guards/authentication.guard';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/common/decorators/roles.decorator';
+import { CreateTournamentOutputDto } from './dto/create-tournament-output.dto';
 
 @Controller('tournaments')
 @ApiTags('Tournament')
@@ -22,10 +23,12 @@ import { Roles } from 'src/common/decorators/roles.decorator';
 export class TournamentsController {
   constructor(private readonly tournamentsService: TournamentsService) {}
 
-  @Roles(1)
+  // @Roles(1)
   @Post()
-  create(@Body() createTournamentDto: CreateTournamentInputDto) {
-    return this.tournamentsService.create(createTournamentDto);
+  async create(
+    @Body() createTournamentDto: CreateTournamentInputDto,
+  ): Promise<CreateTournamentOutputDto> {
+    return await this.tournamentsService.create(createTournamentDto);
   }
 
   @Roles(1, 2)
