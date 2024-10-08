@@ -22,7 +22,7 @@ export class User {
   @Column({ type: 'varchar', nullable: false, length: 255 })
   email: string;
 
-  @Column({ type: 'varchar', nullable: false, length: 30 })
+  @Column({ type: 'varchar', nullable: false, length: 100 })
   password: string;
 
   @Column()
@@ -31,13 +31,15 @@ export class User {
   @ManyToOne(() => Role, (role) => role.users)
   role: Role;
 
-  @ManyToMany(() => Tournament, (tournament) => tournament.users)
+  @ManyToMany(() => Tournament, (tournament) => tournament.users, {
+    nullable: true,
+  })
   @JoinTable()
-  tournaments: Tournament[];
+  tournaments?: Tournament[]; // To be able to create users without the need of providing this
 
-  @OneToMany(() => Match, (match) => match.winner)
-  wonMatches: Match[];
+  @OneToMany(() => Match, (match) => match.winner, { nullable: true })
+  wonMatches?: Match[];
 
-  @OneToMany(() => Match, (match) => match.loser)
-  lostMatches: Match[];
+  @OneToMany(() => Match, (match) => match.loser, { nullable: true })
+  lostMatches?: Match[];
 }
