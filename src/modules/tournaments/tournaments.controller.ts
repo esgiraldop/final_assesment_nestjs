@@ -66,4 +66,12 @@ export class TournamentsController {
   ) {
     return this.tournamentsService.enrollTournament(+userId, +tournamentId);
   }
+
+  @Roles(1, 2)
+  @Post(':id/generate-random-matches')
+  async generateRandomMatches(@Param('id') tournamentId: string) {
+    // Endpoint for generating matches between all the users enrolled in a tournament. All the players play against all each other in the same tournament. The matches are generated in random dates between the days of the tournament. The winner and the loser user is assigned randomly with a proabbilitu of 50% of winning or losing
+
+    return await this.tournamentsService.generateRandomMatches(+tournamentId);
+  }
 }
