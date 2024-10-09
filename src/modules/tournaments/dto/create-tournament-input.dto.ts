@@ -52,8 +52,4 @@ export class CreateTournamentInputDto {
   //   example: 1,
   //   description: 'The id of the score table associated',
   // })
-  // @IsInt()
-  // @ArrayMinSize(1)
-  // @IsNotEmpty({ message: 'The score table id must not be empty' })
-  // scoreTable: number;
 }
